@@ -9,7 +9,6 @@ class Pol_Newton:
         self.ans = 0
         for i in range(len(self.X)):
             self.ans += self.Multi(i) * self.Dis(self.X[0:i+1])
-        print(self.ans)
      
     def Dis(self, F_arg):
         if len(F_arg) > 2:
