@@ -1,5 +1,32 @@
-from sympy.abc import x
-from sympy import expand
+import sympy as sym
+
+class Pol_Newton:
+    
+    def __init__(self, X, Y):
+        self.X = X[:]
+        self.Y = Y[:]
+        self.x = sym.Symbol('x')
+        self.ans = 0
+        for i in range(len(self.X)):
+            self.ans += self.Multi(i) * self.Dis(self.X[0:i+1])
+        print(self.ans)
+     
+    def Dis(self, F_arg):
+        if len(F_arg) > 2:
+            return (Dis(F_arg[:].pop(0)) - Dis(F_arg[:].pop(-1))) / (F_arg[-1] - F_arg[0])
+        elif len(F_arg) > 1:
+            return self.Y[self.X.index(F_arg[-1])] - self.Y[self.X.index(F_arg[0])] / (F_arg[-1] - F_arg[0])
+        else:
+            return self.Y[0]
+
+    def Multi(self, k):
+        mlt = 1
+        for i in range(k):
+            mlt *= self.x - self.X[i]
+        return mlt
+    
+    def Value(self, arg):
+        return self.ans.subs(self.x, arg)
 
 X = input().split()
 X = list(map(float, X))
@@ -7,22 +34,7 @@ X = list(map(float, X))
 Y = input().split()
 Y = list(map(float, Y))
 
-def Dis(F_arg):
-    print(F_arg)
-    if len(F_arg) > 2:
-        return (Dis(F_arg[:].pop(0)) - Dis(F_arg[:].pop(-1))) / (F_arg[-1] - F_arg[0])
-    elif len(F_arg) > 1:
-        return Y[X.index(F_arg[-1])] - Y[X.index(F_arg[0])] / (F_arg[-1] - F_arg[0])
-    else:
-        return Y[0]
+x = int(input())
 
-def multi(k):
-    ans = 1
-    for i in range(k):
-        ans *= x - X[i]
-    return ans
-
-ans = 0
-for i in range(len(X)-1):
-    ans += multi(i) * Dis(X[0:i+1])
-print(expand(ans))
+Pol = Pol_Newton(X, Y)
+print(Pol.Value(x))
