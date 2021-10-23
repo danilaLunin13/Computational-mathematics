@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -42,6 +43,6 @@ int main(){
         coord_old = coord_new;
     }
     for (auto i : coord_new){
-        cout << i << endl;
+        cout << setprecision(6) << i << endl;
     }
 }
