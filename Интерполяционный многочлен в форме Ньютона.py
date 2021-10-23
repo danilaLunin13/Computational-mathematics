@@ -6,17 +6,16 @@ class Pol_Newton:
         self.X = X[:]
         self.Y = Y[:]
         self.x = sym.Symbol('x')
-        self.ans = 0
-        for i in range(len(self.X)):
+        self.ans = self.Y[0]
+        for i in range(1, len(self.X)):
             self.ans += self.Multi(i) * self.Dis(self.X[0:i+1])
+        print(sym.expand(self.ans))
      
     def Dis(self, F_arg):
         if len(F_arg) > 2:
-            return (Dis(F_arg[:].pop(0)) - Dis(F_arg[:].pop(-1))) / (F_arg[-1] - F_arg[0])
-        elif len(F_arg) > 1:
-            return self.Y[self.X.index(F_arg[-1])] - self.Y[self.X.index(F_arg[0])] / (F_arg[-1] - F_arg[0])
+            return (self.Dis(F_arg[1:len(F_arg)]) - self.Dis(F_arg[0:len(F_arg)-1])) / (F_arg[1] - F_arg[0])
         else:
-            return self.Y[0]
+            return (self.Y[self.X.index(F_arg[1])] - self.Y[self.X.index(F_arg[0])]) / (F_arg[1] - F_arg[0])
 
     def Multi(self, k):
         mlt = 1
@@ -33,7 +32,7 @@ X = list(map(float, X))
 Y = input().split()
 Y = list(map(float, Y))
 
-x = int(input())
+x = float(input())
 
 Pol = Pol_Newton(X, Y)
 print(Pol.Value(x))
