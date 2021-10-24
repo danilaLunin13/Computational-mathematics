@@ -13,7 +13,7 @@ class Pol_Newton:
      
     def Dis(self, F_arg):
         if len(F_arg) > 2:
-            return (self.Dis(F_arg[1:len(F_arg)]) - self.Dis(F_arg[0:len(F_arg)-1])) / (F_arg[1] - F_arg[0])
+            return (self.Dis(F_arg[1:len(F_arg)]) - self.Dis(F_arg[0:len(F_arg)-1])) / (F_arg[-1] - F_arg[0])
         else:
             return (self.Y[self.X.index(F_arg[1])] - self.Y[self.X.index(F_arg[0])]) / (F_arg[1] - F_arg[0])
 
