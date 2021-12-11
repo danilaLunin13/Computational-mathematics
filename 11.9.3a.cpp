@@ -51,7 +51,9 @@ vector<vector<double>> Answer(vector<double> Regional){
     }
     Result[0] = Regional;
     for (int i = 1; i < N; ++i) {
-        Result[i] = Result[i-1];
+        //опечатка
+        Result[i][1] = Result[i-1][1];
+        Result[i][2] = Result[i-1][2];
         vector<vector<double>> K = Coef(Result[i-1][0], Result[i-1][1], Result[i-1][2]);
         for (int j = 0; j < C.size(); ++j) {
             Result[i][1] += h*D[j]* K[0][j];
